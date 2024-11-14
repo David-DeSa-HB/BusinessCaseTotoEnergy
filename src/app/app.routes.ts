@@ -1,3 +1,18 @@
 import { Routes } from '@angular/router';
+import {DashboardComponent} from './pages/dashboard/dashboard.component';
+import {LoginComponent} from './pages/login/login.component';
+import {RegisterComponent} from './pages/register/register.component';
+import {ForbiddenComponent} from './pages/forbidden/forbidden.component';
+import {NotFoundComponent} from './pages/not-found/not-found.component';
+import {authGuard} from './guards/auth/auth.guard';
+import {noAuthGuard} from './guards/no-auth/no-auth.guard';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  {path: '', canActivate: [authGuard], component:DashboardComponent},
+  {path: 'login', canActivate: [noAuthGuard], component:LoginComponent},
+  {path: 'register', canActivate: [noAuthGuard], component:RegisterComponent},
+  {path: 'forbidden', component:ForbiddenComponent},
+  {path: 'not-found', component:NotFoundComponent},
+  {path:'**', redirectTo: 'not-found'}
+];
+
