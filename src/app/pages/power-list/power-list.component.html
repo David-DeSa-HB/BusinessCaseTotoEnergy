@@ -1,0 +1,23 @@
+<button routerLink="/power/add">New Power</button>
+
+
+<table>
+  <thead>
+  <tr>
+    <th>id</th>
+    <th>value</th>
+    <th>actions</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let power of powers">
+    <td>{{power.id}}</td>
+    <td>{{power.value}}</td>
+    <td>
+      <a [routerLink]="['/power', power.id]">Detail</a>
+      <a [routerLink]="['/power','edit', power.id]">Edit</a>
+      <button (click)="onClickDelete(power.id)">Delete</button>
+    </td>
+  </tr>
+  </tbody>
+</table>

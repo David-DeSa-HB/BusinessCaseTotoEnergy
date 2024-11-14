@@ -1,6 +1,6 @@
 import {HttpClient} from '@angular/common/http'
 import {inject, Injectable} from '@angular/core'
-import {lastValueFrom} from 'rxjs'
+import {BehaviorSubject, lastValueFrom, Observable} from 'rxjs'
 import {environment} from '../../../environments/environment.development'
 import {RegisterInput} from '../../entities/register.entity';
 
@@ -10,7 +10,7 @@ import {RegisterInput} from '../../entities/register.entity';
 export class AuthService {
   private readonly http = inject(HttpClient)
 
-  private _token: string | undefined
+  private _token$: BehaviorSubject<string|undefined> = new BehaviorSubject<string|undefined>(undefined);
 
   private readonly rootUrl = environment.API_URL
   private readonly resource = 'auth'
@@ -18,12 +18,16 @@ export class AuthService {
   constructor() {
     const token = localStorage.getItem(environment.LOCALSTORAGE_KEYS.TOKEN)
     if (token) {
-      this._token=token;
+      this._token$.next(token);
     }
   }
 
   get token(): string | undefined {
-    return this._token
+    return this._token$.value; //read and write
+  }
+
+  get token$(): Observable<string | undefined> {
+    return this._token$.asObservable(); //read only
   }
 
   async login(email: string, password: string, keepConnected: boolean): Promise<void> {
@@ -35,7 +39,7 @@ export class AuthService {
 
     return lastValueFrom(obs$)
       .then(res => {
-        this._token = res.token
+        this._token$.next(res.token)
         if (keepConnected) {
           localStorage.setItem(environment.LOCALSTORAGE_KEYS.TOKEN, res.token)
         }
@@ -53,6 +57,6 @@ export class AuthService {
 
   logOut(): void {
     localStorage.removeItem(environment.LOCALSTORAGE_KEYS.TOKEN);
-    this._token = undefined
+    this._token$.next(undefined)
   }
 }
