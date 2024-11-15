@@ -10,6 +10,7 @@ import {PowerListComponent} from './pages/power-list/power-list.component';
 import {AddPowerComponent} from './pages/add-power/add-power.component';
 import {EditPowerComponent} from './pages/edit-power/edit-power.component';
 import {PowerDetailComponent} from './pages/power-detail/power-detail.component';
+import {roleGuard} from './guards/roles/roles.guard';
 
 export const routes: Routes = [
   {path: '', canActivate: [authGuard], component: DashboardComponent},
@@ -17,7 +18,7 @@ export const routes: Routes = [
   {path: 'register', canActivate: [noAuthGuard], component: RegisterComponent},
 
   {
-    path: 'power', canActivate: [authGuard], children: [
+    path: 'power', canActivate: [authGuard, roleGuard], data: {roles:['ROLE_ADMIN']}, children: [
       {path: '', redirectTo: 'list', pathMatch: 'full'},
       {path: 'list', component: PowerListComponent},
       {path: 'add', component: AddPowerComponent},
