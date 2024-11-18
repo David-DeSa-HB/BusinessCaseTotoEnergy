@@ -1,8 +1,8 @@
 import {Component, inject, Input, numberAttribute, OnInit} from '@angular/core';
-import {PowerService} from '../../services/power/power.service';
-import {EditPowerInput, Power} from '../../entities/power.entity';
+import {PowerService} from '../../../services/power/power.service';
+import {EditPowerInput, Power} from '../../../entities/power.entity';
 import {Router} from '@angular/router';
-import {PowerFormComponent} from '../../components/power-form/power-form.component';
+import {PowerFormComponent} from '../../../components/power-form/power-form.component';
 import {NgIf} from '@angular/common';
 
 @Component({

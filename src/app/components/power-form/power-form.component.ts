@@ -17,7 +17,8 @@ export class PowerFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = new FormGroup({
-      value: new FormControl(this.powerToEdit ? this.powerToEdit.value : 0, [Validators.required, Validators.min(0)]),
+      value: new FormControl(this.powerToEdit ? this.powerToEdit.value : 0,
+        [Validators.required, Validators.min(0)]),
     })
   }
 

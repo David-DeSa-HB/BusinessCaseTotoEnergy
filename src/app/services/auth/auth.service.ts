@@ -12,6 +12,7 @@ export class AuthService {
   private readonly http = inject(HttpClient)
 
   private _token$: BehaviorSubject<string|undefined> = new BehaviorSubject<string|undefined>(undefined);
+  _userId$: BehaviorSubject<string|undefined> = new BehaviorSubject<string|undefined>(undefined);
   _roles$: BehaviorSubject<string[]|undefined> = new BehaviorSubject<string[]|undefined>(undefined)
 
   private readonly rootUrl = environment.API_URL
@@ -21,7 +22,9 @@ export class AuthService {
     const token = localStorage.getItem(environment.LOCALSTORAGE_KEYS.TOKEN)
     if (token) {
       this._token$.next(token);
-      this._roles$.next(this.decodeToken(token).roles)
+      const decodedToken = this.decodeToken(token)
+      this._userId$.next(decodedToken.id)
+      this._roles$.next(decodedToken.roles)
     }
   }
 
@@ -43,7 +46,9 @@ export class AuthService {
     return lastValueFrom(obs$)
       .then(res => {
         this._token$.next(res.token)
-        this._roles$.next(this.decodeToken(res.token).roles)
+        const decodedToken = this.decodeToken(res.token)
+        this._userId$.next(decodedToken.id)
+        this._roles$.next(decodedToken.roles)
         if (keepConnected) {
           localStorage.setItem(environment.LOCALSTORAGE_KEYS.TOKEN, res.token)
         }
@@ -62,6 +67,8 @@ export class AuthService {
   logOut(): void {
     localStorage.removeItem(environment.LOCALSTORAGE_KEYS.TOKEN);
     this._token$.next(undefined)
+    this._userId$.next(undefined)
+    this._roles$.next(undefined)
   }
 
   private decodeToken(token: string): any {

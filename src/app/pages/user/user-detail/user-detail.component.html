@@ -1,0 +1,8 @@
+<div *ngIf="user">
+  <div>last name: {{user.lastName}} </div>
+  <div>first name: {{user.firstName}} </div>
+  <div>email: {{user.email}} </div>
+  <div>birthdate: {{user.birthDate}} </div>
+  <div>phone: {{user.phone}} </div>
+  <a [routerLink]="['/user','edit', user.id]">Edit</a>
+</div>

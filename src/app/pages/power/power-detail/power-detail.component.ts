@@ -1,6 +1,6 @@
 import {Component, inject, Input, numberAttribute, OnInit} from '@angular/core';
-import {PowerService} from '../../services/power/power.service';
-import {Power} from '../../entities/power.entity';
+import {PowerService} from '../../../services/power/power.service';
+import {Power} from '../../../entities/power.entity';
 import {NgIf} from '@angular/common';
 
 @Component({

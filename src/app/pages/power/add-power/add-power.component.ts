@@ -1,7 +1,7 @@
 import {Component, inject} from '@angular/core';
-import {PowerFormComponent} from '../../components/power-form/power-form.component';
-import {AddPowerInput} from '../../entities/power.entity';
-import {PowerService} from '../../services/power/power.service';
+import {PowerFormComponent} from '../../../components/power-form/power-form.component';
+import {AddPowerInput} from '../../../entities/power.entity';
+import {PowerService} from '../../../services/power/power.service';
 import {Router} from '@angular/router';
 
 @Component({

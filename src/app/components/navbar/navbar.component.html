@@ -4,6 +4,7 @@
   </div>
   <div *ngIf="token$ | async" class="flex justify-end gap-4">
     <a routerLink="/power/list">Puissances</a>
+    <a routerLink="/user/me">Mon Compte</a>
     <button (click)="onClickLogOut()">LogOut</button>
   </div>
 </div>

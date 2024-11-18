@@ -1,6 +1,6 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {PowerService} from '../../services/power/power.service';
-import {Power} from '../../entities/power.entity';
+import {PowerService} from '../../../services/power/power.service';
+import {Power} from '../../../entities/power.entity';
 import {NgForOf} from '@angular/common';
 import {RouterLink} from '@angular/router';
 
